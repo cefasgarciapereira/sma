@@ -1,12 +1,18 @@
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { Router } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 
-const theme = createMuiTheme({
+import Routes from './routes';
+
+const history = createBrowserHistory();
+
+const theme = createTheme({
   palette: {
     primary: {
-      main: "#000000",
+      main: "#243743",
     },
     secondary: {
-      main: "#ffffff",
+      main: "#28b78d",
     },
   },
 });
@@ -14,7 +20,9 @@ const theme = createMuiTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <h1>Hello World</h1>
+      <Router history={history}>
+        <Routes />
+      </Router>
     </ThemeProvider>
   );
 }
