@@ -5,6 +5,8 @@ import {
 } from '@material-ui/core';
 import Sentiment from 'sentiment';
 
+import { Wordcloud } from 'components';
+
 var lda = require('@stdlib/nlp-lda');
 var model;
 var sentiment;
@@ -36,16 +38,13 @@ export default function Home() {
                 documents.forEach(document => {
                     if (document.includes(t.word)) {
                         topicSentiment = topicSentiment + sentiment.analyze(document).score
-                        console.log(`${document}: ${sentiment.analyze(document).score}`)
                     }
                 })
             })
-            console.log('\n')
             topicsSentiments.push(topicSentiment)
         })
 
         topicsSentiments = topicsSentiments.map(normalize(0, 10))
-        console.log(topicsSentiments)
         topicsSentiments.forEach((sent, index) => topics[index].sentiment = sent)
 
         return topics
@@ -79,6 +78,9 @@ export default function Home() {
                         ))
                     }
                 </Grid>
+            </Grid>
+            <Grid item xs={12}>
+                <Wordcloud />
             </Grid>
         </Grid>
     )
