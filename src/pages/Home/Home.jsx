@@ -3,10 +3,11 @@ import {
     Grid,
     Typography
 } from '@material-ui/core';
+import Sentiment from 'sentiment';
 
 var lda = require('@stdlib/nlp-lda');
 var model;
-var speeches;
+var sentiment;
 
 export default function Home() {
     const [documents, setDocuments] = useState(initialDocuments)
@@ -16,6 +17,7 @@ export default function Home() {
     useEffect(() => {
         model = lda(documents, kTopics);
         model.fit(1000, 100, 10);
+        sentiment = new Sentiment()
         setReady(true);
     }, [])
 
@@ -24,7 +26,6 @@ export default function Home() {
         for (let i = 0; i < kTopics; i++) {
             topics.push(model.getTerms(i, n))
         }
-        console.log(topics)
         return topics
     }
 
@@ -38,9 +39,15 @@ export default function Home() {
                     {
                         ready &&
                         renderTopics(5).map((topic, index) => (
-                            <Grid item xs={4}>
+                            <Grid item xs={4} key={index}>
                                 <h4>Topic {index}</h4>
-                                {topic.map(({ word, prob }) => <p>{word}: {prob}</p>)}
+                                {topic.map(({ word, prob }) =>
+                                    <div key={word}>
+                                        <p>{word}: {prob}</p>
+                                        <p>Sentiment: {sentiment.analyze(word).score}</p>
+                                        <br />
+                                    </div>
+                                )}
                             </Grid>
                         ))
                     }
