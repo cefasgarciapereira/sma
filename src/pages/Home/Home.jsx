@@ -12,8 +12,8 @@ var model;
 var sentiment;
 
 export default function Home() {
-    const [documents, setDocuments] = useState(initialDocuments)
-    const [kTopics, setKTopics] = useState(3)
+    const [documents] = useState(initialDocuments)
+    const [kTopics] = useState(3)
     const [ready, setReady] = useState(false)
 
     useEffect(() => {
@@ -21,6 +21,7 @@ export default function Home() {
         model.fit(1000, 100, 10);
         sentiment = new Sentiment()
         setReady(true);
+        // eslint-disable-next-line
     }, [])
 
     const renderTopics = (n) => {
@@ -33,7 +34,6 @@ export default function Home() {
 
         topics.forEach(topic => {
             var topicSentiment = 0;
-            var n = 1;
             topic.forEach(t => {
                 documents.forEach(document => {
                     if (document.includes(t.word)) {

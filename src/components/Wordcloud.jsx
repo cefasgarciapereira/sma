@@ -7,18 +7,19 @@ import 'tippy.js/animations/scale.css';
 
 import { mockDocuments } from 'utils/documents';
 
+// eslint-disable-next-line
+Object.defineProperties(Array.prototype, {
+    count: {
+        value: function (value) {
+            return this.filter(x => x === value).length;
+        }
+    }
+});
+
 export default function Wordcloud() {
     const [wordcloud, setWordcloud] = useState()
 
     useEffect(() => {
-        Object.defineProperties(Array.prototype, {
-            count: {
-                value: function (value) {
-                    return this.filter(x => x == value).length;
-                }
-            }
-        });
-
         var all = ''
         let newWordcloud = []
 
@@ -35,7 +36,7 @@ export default function Wordcloud() {
     }, [])
 
 
-    if(!wordcloud) return <Typography>Generating wordcloud...</Typography>
+    if (!wordcloud) return <Typography>Generating wordcloud...</Typography>
 
     return (<ReactWordcloud words={wordcloud} />)
 }
