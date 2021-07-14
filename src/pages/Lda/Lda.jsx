@@ -5,13 +5,11 @@ import {
 } from '@material-ui/core';
 import Sentiment from 'sentiment';
 
-import { Wordcloud } from 'components';
-
 var lda = require('@stdlib/nlp-lda');
 var model;
 var sentiment;
 
-export default function Home() {
+export default function Lda() {
     const [documents] = useState(initialDocuments)
     const [kTopics] = useState(3)
     const [ready, setReady] = useState(false)
@@ -65,7 +63,7 @@ export default function Home() {
                 <Grid container fullWidth>
                     {
                         ready &&
-                        renderTopics(5).map((topic, index) => (
+                        renderTopics(10).map((topic, index) => (
                             <Grid item xs={4} key={index}>
                                 <h4>Topic {index}</h4>
                                 <h4>Sentiment {topic.sentiment}</h4>
@@ -78,9 +76,6 @@ export default function Home() {
                         ))
                     }
                 </Grid>
-            </Grid>
-            <Grid item xs={12}>
-                <Wordcloud />
             </Grid>
         </Grid>
     )

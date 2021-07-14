@@ -14,8 +14,9 @@ import {
     Toolbar,
     Typography
 } from '@material-ui/core';
-import { LibraryBooks, Menu } from '@material-ui/icons';
+import { LibraryBooks, Menu, Cloud } from '@material-ui/icons';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { Link as RouterLink } from 'react-router-dom';
 
 function ResponsiveDrawer(props) {
     const { window } = props;
@@ -32,9 +33,13 @@ function ResponsiveDrawer(props) {
             <div className={classes.toolbar} />
             <Divider />
             <List>
-                <ListItem button>
-                    <ListItemIcon><LibraryBooks/></ListItemIcon>
-                    <ListItemText primary="LDA" secondary="Latent Drichilet Allocation"/>
+                <ListItem button component={RouterLink} to="/">
+                    <ListItemIcon><LibraryBooks /></ListItemIcon>
+                    <ListItemText primary="LDA"/>
+                </ListItem>
+                <ListItem button component={RouterLink} to="/wordcloud">
+                    <ListItemIcon><Cloud /></ListItemIcon>
+                    <ListItemText primary="Wordcloud"/>
                 </ListItem>
             </List>
         </div>
@@ -54,7 +59,7 @@ function ResponsiveDrawer(props) {
                         onClick={handleDrawerToggle}
                         className={classes.menuButton}
                     >
-                        <Menu/>
+                        <Menu />
                     </IconButton>
                     <Typography variant="h6" noWrap>
                         SMA - Social Media Analyzer
